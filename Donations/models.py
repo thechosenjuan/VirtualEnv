@@ -23,7 +23,7 @@ class Faq(models.Model):
 
 class Product(models.Model):
 	name = models.CharField(max_length=100)
-	price = models.DecimalField(max_digits=6, decimal_places=3)
+	price = models.DecimalField(max_digits=6, decimal_places=2)
 	quantity = models.IntegerField()
 	description = models.TextField()
 	picture = models.FileField(upload_to='img', max_length=100)

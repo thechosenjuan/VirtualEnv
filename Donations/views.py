@@ -98,3 +98,10 @@ def projectDetails(request, Project_id):
 	except Project.DoesNotExist:
 		raise Http404("Project does not exist")
 	return render(request, 'Donations/detail.html', {'Project': project, 'Products' : products})
+
+def search(request):
+	if request.GET.get('quantity'):
+		message = 'You submitted: %r' + request.GET['product']
+	else:
+		message = 'You submitted nothing!'
+	return HttpResponse(message)
