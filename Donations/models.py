@@ -20,3 +20,16 @@ class Faq(models.Model):
 
 	def __str__(self):
 		return self.question
+
+class Product(models.Model):
+	name = models.CharField(max_length=100)
+	price = models.DecimalField(max_digits=6, decimal_places=3)
+	quantity = models.IntegerField()
+	description = models.TextField()
+	picture = models.FileField(upload_to='img', max_length=100)
+
+class Project(models.Model):
+	name = models.CharField(max_length=100)
+	description = models.TextField()
+	location = models. CharField(max_length=100)
+	picture	= models.FileField(upload_to='img', max_length=100)

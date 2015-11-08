@@ -10,10 +10,11 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 def home(request):
+
 	if 'email' not in request.session:
 		return HttpResponseRedirect("/login/")
 	return render_to_response("Donations/home.html")
-
+	
 
 def login(request):
 	title = "Welcome"
@@ -26,11 +27,10 @@ def login(request):
 	}
 	if form.is_valid():
 		#form.save()
-
+		
 		userEmail = form.cleaned_data.get("email")
 		password = form.cleaned_data.get("password")
 		try:
-			pdb.set_trace()
 			user=User.objects.get(email=userEmail)
 			if password == user.password:
 				request.session['email'] = userEmail
@@ -79,3 +79,6 @@ def faq(request):
 		"FAQ": FAQ,
 	}
 	return render(request, "Donations/faq.html", context)
+
+
+
