@@ -4,8 +4,9 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 from .forms import RegistrationForm, LoginForm
 import pdb
-from Donations.models import User
+from Donations.models import User, Faq
 from django.http import HttpResponseRedirect
+
 
 # Create your views here.
 def home(request):
@@ -71,3 +72,11 @@ def registration(request):
 def logout(request):
 	del request.session['email']
 	return HttpResponseRedirect("/login/")
+
+def faq(request):
+	FAQ = Faq.objects.all()
+	context = {
+		"FAQ": FAQ,
+	}
+	return render(request, "Donations/faq.html", context)
+

@@ -11,3 +11,12 @@ class User(models.Model):
 
 	def __str__(self):
 		return self
+
+class Faq(models.Model):
+	question = models.CharField(max_length=200)
+	answer = models.TextField()
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+	def __str__(self):
+		return self
