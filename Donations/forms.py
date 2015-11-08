@@ -20,3 +20,13 @@ class RegistrationForm(forms.ModelForm):
 	def clean_password(self):
 		password = self.cleaned_data.get('password')
 		return password
+
+
+
+class LoginForm(forms.Form):
+	email=forms.EmailField()
+	password=forms.CharField(widget=forms.PasswordInput)
+
+
+
+

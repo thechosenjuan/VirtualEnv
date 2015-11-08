@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
-from .forms import RegistrationForm
+from .forms import RegistrationForm, LoginForm
+import pdb
+from Donations.models import User
 
 # Create your views here.
 def home(request):
@@ -10,7 +12,7 @@ def home(request):
 
 def login(request):
 	title = "Welcome"
-	form = SignUpForm(request.POST or None)
+	form = LoginForm(request.POST or None)
 	#if request.user.is_authenticated():
 	#	title = "My title %s" %(request.user)
 	context = {
@@ -19,14 +21,26 @@ def login(request):
 	}
 	if form.is_valid():
 		#form.save()
-		instance = form.save(commit="False")
-		full_name = form.cleaned_data.get("full_name")
-		if not full_name:
-			full_name = "New full_name"
-		instance.full_name = full_name
-		context = {
-			"title": "Thank you"
-		}
+		
+		email = form.cleaned_data.get("email")
+		password = form.cleaned_data.get("password")
+		#pdb.set_trace()
+		for i in User.objects.all(): 
+			if i.email == str(email): 
+				if i.password == str(password):
+					context = {
+						"title": "Login successful"
+					}
+					return render(request, "Donations/home.html", context)
+				else:
+					context = {
+						"title": "Wrong password"
+					}
+			else:
+
+				context = {
+					"title": "User not found"
+				}
 
 	return render(request, "Donations/login.html", context)
 
