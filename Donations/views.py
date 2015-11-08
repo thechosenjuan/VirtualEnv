@@ -5,10 +5,15 @@ from django.conf import settings
 from .forms import RegistrationForm, LoginForm
 import pdb
 from Donations.models import User
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def home(request):
-    return render_to_response("Donations/home.html")
+
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
+	return render_to_response("Donations/home.html")
+	
 
 def login(request):
 	title = "Welcome"
@@ -24,14 +29,14 @@ def login(request):
 		
 		email = form.cleaned_data.get("email")
 		password = form.cleaned_data.get("password")
-		#pdb.set_trace()
 		for i in User.objects.all(): 
 			if i.email == str(email): 
 				if i.password == str(password):
+					request.session['email'] = str(email)
 					context = {
 						"title": "Login successful"
 					}
-					return render(request, "Donations/home.html", context)
+					return HttpResponseRedirect("/home/")
 				else:
 					context = {
 						"title": "Wrong password"
@@ -52,9 +57,17 @@ def registration(request):
 		"form": form
 	}
 	if form.is_valid():
+		email = form.cleaned_data.get("email")
 		instance = form.save(commit="False")
 		context = {
 			"title": "Registration complete"
 		}
+		request.session['email'] = str(email)
+		return HttpResponseRedirect("/home/")
 
 	return render(request, "Donations/registration.html", context)
+
+
+def logout(request):
+	del request.session['email']
+	return HttpResponseRedirect("/login/")
