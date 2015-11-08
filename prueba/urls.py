@@ -19,5 +19,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^home/$', 'Donations.views.home', name="home"),
     url(r'^login/$', 'Donations.views.login', name="login"),
+    url(r'^registration/$', 'Donations.views.registration', name="registration"),
     url(r'^admin/', include(admin.site.urls)),
 ]

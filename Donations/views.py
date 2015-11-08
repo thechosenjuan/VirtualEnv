@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
-from .forms import ContactForm, SignUpForm
+from .forms import SignUpForm, RegistrationForm
 
 # Create your views here.
 def home(request):
@@ -29,3 +29,18 @@ def login(request):
 		}
 
 	return render(request, "Donations/login.html", context)
+
+def registration(request):
+	title = "Registration"
+	form = RegistrationForm(request.POST or None)
+	context = {
+		"title": title,
+		"form": form
+	}
+	if form.is_valid():
+		instance = form.save(commit="False")
+		context = {
+			"title": "Registration complete"
+		}
+
+	return render(request, "Donations/registration.html", context)
