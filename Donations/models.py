@@ -28,8 +28,23 @@ class Product(models.Model):
 	description = models.TextField()
 	picture = models.FileField(upload_to='img', max_length=100)
 
+	def __str__(self):
+		return self.name
+
 class Project(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.TextField()
 	location = models. CharField(max_length=100)
 	picture	= models.FileField(upload_to='img', max_length=100)
+
+	def __str__(self):
+		return self.name
+
+
+class Cart(models.Model):
+	user = models.ForeignKey(User)
+	product = models.ForeignKey(Product)
+	quantity = models.IntegerField(default=0)
+
+	def __str__(self):
+		return str(self.quantity)

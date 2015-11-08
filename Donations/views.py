@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 from .forms import RegistrationForm, LoginForm
 import pdb
-from Donations.models import User, Faq, Project, Product
+from Donations.models import User, Faq, Project, Product, Cart
 from django.http import HttpResponseRedirect
 from django.http import Http404
 
@@ -101,7 +101,18 @@ def projectDetails(request, Project_id):
 
 def search(request):
 	if request.GET.get('quantity'):
-		message = 'You submitted: %r' + request.GET['product']
+
+		product_id = request.GET['product']
+		product_toAdd = Product.objects.get(pk=product_id)
+		quantity_toAdd = request.GET['quantity']
+		message = "carrito actualizado!"
+		user_toAdd = User.objects.get(email = str(request.session['email']))
+		pdb.set_trace()
+
+		product_toAddCart = Cart(user = user_toAdd, product = product_toAdd, quantity = int(quantity_toAdd))
+		product_toAddCart.save()
+		
+
 	else:
 		message = 'You submitted nothing!'
 	return HttpResponse(message)
