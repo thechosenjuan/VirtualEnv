@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
-from .forms import SignUpForm, RegistrationForm
+from .forms import RegistrationForm
 
 # Create your views here.
 def home(request):

@@ -2,11 +2,13 @@
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
-body {
-  padding-bottom: 40px;
-  color: #5a5a5a;
+html{
+  height: 100%;
 }
 
+body {
+  min-height: 100%;
+}
 
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
@@ -40,7 +42,6 @@ body {
 /* Carousel base class */
 .carousel {
   height: 810px;
-  margin-bottom: 60px;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
