@@ -28,25 +28,22 @@ def login(request):
 	if form.is_valid():
 		#form.save()
 		
-		email = form.cleaned_data.get("email")
+		userEmail = form.cleaned_data.get("email")
 		password = form.cleaned_data.get("password")
-		for i in User.objects.all(): 
-			if i.email == str(email): 
-				if i.password == str(password):
-					request.session['email'] = str(email)
-					context = {
-						"title": "Login successful"
-					}
-					return HttpResponseRedirect("/home/")
-				else:
-					context = {
-						"title": "Wrong password"
-					}
+		try:
+			user=User.objects.get(email=userEmail)
+			if password == user.password:
+				return HttpResponseRedirect("/home/")
 			else:
-
 				context = {
-					"title": "User not found"
+					"title": "Wrong password",
+					"form": form
 				}
+		except User.DoesNotExist:
+			context = {
+				"title": "User not found",
+				"form": form
+			}
 
 	return render(request, "Donations/login.html", context)
 

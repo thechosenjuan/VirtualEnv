@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^home/$', 'Donations.views.home', name="home"),
     url(r'^login/$', 'Donations.views.login', name="login"),
     url(r'^logout/$', 'Donations.views.logout', name="logout"),
+    url(r'^faq/$', 'Donations.views.faq', name="faq"),
     url(r'^registration/$', 'Donations.views.registration', name="registration"),
     url(r'^admin/', include(admin.site.urls)),
 ]
