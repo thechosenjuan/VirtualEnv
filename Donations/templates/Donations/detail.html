@@ -56,8 +56,8 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="/projects">Projects</a></li>
-                <li class="active"><a href="/faq">FAQ</a></li>
+                <li class="active"><a href="/projects">Projects</a></li>
+                <li><a href="/faq">FAQ</a></li>
                 <li><a href="#contact">Contact us</a></li>
                 <li><a href="#contact">About us</a></li>
                 <li><a href="/logout">Logout</a></li>
@@ -68,28 +68,43 @@
 
       </div>
     </div>
-
-  <div class="container">
-    <h1>Frequently Ask Questions</h1>
-    <div class="panel-group" id="accordion">
-      {% for i in FAQ %}
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}">
-              {{i.question}}
-            </a>
-          </h4>
+    <div class="container">
+      {% static "" as baseUrl %}
+      <div class="row">
+        <div class="col-md-8">
+          <img src="{{ baseUrl }}{{Project.picture}}" alt="" class="img-thumbnail" class="img-responsive"/>
         </div>
-        <div id="collapse{{forloop.counter}}" class="panel-collapse collapse ">
-          <div class="panel-body">
-            {{i.answer}}
-          </div>
+        <div class="col-md-4">
+          <h3>
+            {{Project.name}}
+          </h3>
+          <p>
+            {{Project.description}}
+          </p>
         </div>
       </div>
-      {% endfor %}
+      <p>
+      </p>
     </div>
-  </div>
+
+    <div class="container">
+      <div class="row">
+        {% for i in Products%}
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            {% static "" as baseUrl %}
+            <img src="{{ baseUrl }}{{i.picture}}" alt="...">
+            <div class="caption">
+              <h3>{{i.name}}</h3>
+              <p>{{i.description}}</p>
+              <p><a href="#" class="btn btn-primary" role="button" onclick="location.href='/projects/{{i.id}}'">Add to cart</a></p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   </body>

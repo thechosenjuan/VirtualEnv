@@ -21,6 +21,8 @@ urlpatterns = [
     url(r'^login/$', 'Donations.views.login', name="login"),
     url(r'^logout/$', 'Donations.views.logout', name="logout"),
     url(r'^faq/$', 'Donations.views.faq', name="faq"),
+    url(r'^projects/$', 'Donations.views.projects', name="projects"),
+    url(r'^projects/(?P<Project_id>[0-9]+)/$', 'Donations.views.projectDetails', name='projectDetails'),
     url(r'^registration/$', 'Donations.views.registration', name="registration"),
     url(r'^admin/', include(admin.site.urls)),
 ]

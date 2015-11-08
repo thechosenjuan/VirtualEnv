@@ -4,8 +4,10 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 from .forms import RegistrationForm, LoginForm
 import pdb
-from Donations.models import User, Faq
+from Donations.models import User, Faq, Project, Product
 from django.http import HttpResponseRedirect
+from django.http import Http404
+
 
 
 # Create your views here.
@@ -14,7 +16,7 @@ def home(request):
 	if 'email' not in request.session:
 		return HttpResponseRedirect("/login/")
 	return render_to_response("Donations/home.html")
-	
+
 
 def login(request):
 	title = "Welcome"
@@ -27,7 +29,7 @@ def login(request):
 	}
 	if form.is_valid():
 		#form.save()
-		
+
 		userEmail = form.cleaned_data.get("email")
 		password = form.cleaned_data.get("password")
 		try:
@@ -80,5 +82,19 @@ def faq(request):
 	}
 	return render(request, "Donations/faq.html", context)
 
+def projects(request):
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
+	project = Project.objects.all()
+	context = {
+		"Project":project
+	}
+	return render(request, "Donations/projects.html", context)
 
-
+def projectDetails(request, Project_id):
+	try:
+		project = Project.objects.get(pk=Project_id)
+		products = Product.objects.all()
+	except Project.DoesNotExist:
+		raise Http404("Project does not exist")
+	return render(request, 'Donations/detail.html', {'Project': project, 'Products' : products})
