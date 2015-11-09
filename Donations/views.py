@@ -107,7 +107,6 @@ def search(request):
 		quantity_toAdd = request.GET['quantity']
 		message = "carrito actualizado!"
 		user_toAdd = User.objects.get(email = str(request.session['email']))
-		pdb.set_trace()
 
 		product_toAddCart = Cart(user = user_toAdd, product = product_toAdd, quantity = int(quantity_toAdd))
 		product_toAddCart.save()
@@ -116,3 +115,11 @@ def search(request):
 	else:
 		message = 'You submitted nothing!'
 	return HttpResponse(message)
+
+def cart(request):
+	query_results = Cart.objects.all()
+	pdb.set_trace()
+	context = {
+		"Cart": query_results
+	}
+	return render(request, "Donations/cart.html", context)

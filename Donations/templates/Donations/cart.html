@@ -1,0 +1,13 @@
+{% load staticfiles %}
+<table>
+    <tr>
+        <th>Product name</th>
+        <th>Quantity</th>
+    </tr>
+    {% for item in query_results %}
+    <tr> 
+        <td>{{ item.product }}</td>
+        <td>{{ item.quantity }}</td>
+    </tr>
+    {% endfor %}
+</table>
