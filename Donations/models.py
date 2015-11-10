@@ -43,6 +43,7 @@ class Project(models.Model):
 
 class Cart(models.Model):
 	user = models.ForeignKey(User)
+	project = models.ForeignKey(Project, default=1)
 	product = models.ForeignKey(Product)
 	quantity = models.IntegerField(default=0)
 

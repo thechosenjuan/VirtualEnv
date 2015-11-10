@@ -29,7 +29,7 @@ admin.site.register(Project, ProjectAdmin)
 
 class CartAdmin(admin.ModelAdmin):
 	model = Cart
-	list_display = ["get_user", "get_product", "quantity", "get_price"]
+	list_display = ["get_user", "get_project" , "get_product", "quantity", "get_price"]
 
 	def get_user(self, obj):
 		return obj.user.full_name
@@ -43,7 +43,8 @@ class CartAdmin(admin.ModelAdmin):
 		return obj.product.price
 	get_price.short_description = "Price"
 
+	def get_project(self, obj):
+		return obj.project.name
+	get_project.short_description = "Project"
+
 admin.site.register(Cart, CartAdmin)
-
-
-
