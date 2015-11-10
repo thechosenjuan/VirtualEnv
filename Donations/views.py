@@ -117,9 +117,11 @@ def search(request):
 	return HttpResponse(message)
 
 def cart(request):
-	query_results = Cart.objects.all()
-	pdb.set_trace()
+	items = []
+	for i in Cart.objects.all():
+		if i.user.email == request.session['email']:
+			items.append(i)
 	context = {
-		"Cart": query_results
+		"Cart": items
 	}
 	return render(request, "Donations/cart.html", context)

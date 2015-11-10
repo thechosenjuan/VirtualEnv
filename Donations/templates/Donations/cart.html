@@ -1,12 +1,16 @@
 {% load staticfiles %}
 <table>
     <tr>
+        <th>User name</th>
+        <th>Project name</th>
         <th>Product name</th>
         <th>Quantity</th>
     </tr>
-    {% for item in query_results %}
+    {% for item in Cart %}
     <tr> 
-        <td>{{ item.product }}</td>
+        <td>{{ item.user.full_name }}</td>
+        <td>{{ item.project.name }}</td>
+        <td>{{ item.product.name }}</td>
         <td>{{ item.quantity }}</td>
     </tr>
     {% endfor %}
