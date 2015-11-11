@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.conf import settings
 from .forms import RegistrationForm, LoginForm
 import pdb
 from Donations.models import User, Faq, Project, Product, Cart
 from django.http import HttpResponseRedirect
 from django.http import Http404
+
 
 
 
@@ -97,31 +98,43 @@ def projectDetails(request, Project_id):
 		products = Product.objects.all()
 	except Project.DoesNotExist:
 		raise Http404("Project does not exist")
-	return render(request, 'Donations/detail.html', {'Project': project, 'Products' : products})
+	context = {
+		'Project': project, 
+		'Products' : products,
+		'Project_id' : Project_id
+		}
+
+	return render(request, 'Donations/detail.html', context)
 
 def search(request):
 	if request.GET.get('quantity'):
 
 		product_id = request.GET['product']
 		product_toAdd = Product.objects.get(pk=product_id)
+		project_id = request.GET['Project_id']
+		project_toAdd = Project.objects.get(pk=project_id)
 		quantity_toAdd = request.GET['quantity']
 		message = "carrito actualizado!"
 		user_toAdd = User.objects.get(email = str(request.session['email']))
 
-		product_toAddCart = Cart(user = user_toAdd, product = product_toAdd, quantity = int(quantity_toAdd))
+		product_toAddCart = Cart(user = user_toAdd, project = project_toAdd, product = product_toAdd, quantity = int(quantity_toAdd))
 		product_toAddCart.save()
 		
 
 	else:
 		message = 'You submitted nothing!'
-	return HttpResponse(message)
+	return redirect("Donations.views.projectDetails", Project_id=project_id)
 
 def cart(request):
 	items = []
 	for i in Cart.objects.all():
 		if i.user.email == request.session['email']:
 			items.append(i)
+	total=0
+	for i in items:
+		total=total+i.quantity*i.product.price
 	context = {
-		"Cart": items
+		"Cart": items,
+		"total": total
 	}
 	return render(request, "Donations/cart.html", context)
