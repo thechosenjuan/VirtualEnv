@@ -147,9 +147,6 @@ def cart(request):
 		"total": total
 	}
 	return render(request, "Donations/cart.html", context)
-<<<<<<< HEAD
 
 def about_us(request):
 		return render_to_response("Donations/about_us.html")
-=======
->>>>>>> 8aadc80a12ee9b06aaa129b0a8c49a426288d9c5
