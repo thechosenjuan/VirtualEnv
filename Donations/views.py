@@ -13,7 +13,6 @@ from django.http import Http404
 
 # Create your views here.
 def home(request):
-
 	if 'email' not in request.session:
 		return HttpResponseRedirect("/login/")
 	return render_to_response("Donations/home.html")
@@ -77,6 +76,7 @@ def logout(request):
 def faq(request):
 	if 'email' not in request.session:
 		return HttpResponseRedirect("/login/")
+
 	FAQ = Faq.objects.all()
 	context = {
 		"FAQ": FAQ,
@@ -86,6 +86,7 @@ def faq(request):
 def projects(request):
 	if 'email' not in request.session:
 		return HttpResponseRedirect("/login/")
+
 	project = Project.objects.all()
 	context = {
 		"Project":project
@@ -93,6 +94,9 @@ def projects(request):
 	return render(request, "Donations/projects.html", context)
 
 def projectDetails(request, Project_id):
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
+
 	try:
 		project = Project.objects.get(pk=Project_id)
 		products = Product.objects.all()
@@ -107,8 +111,10 @@ def projectDetails(request, Project_id):
 	return render(request, 'Donations/detail.html', context)
 
 def add_item_to_cart(request):
-	if request.GET.get('quantity'):
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
 
+	if request.GET.get('quantity'):
 		product_id = request.GET['product']
 		product_toAdd = Product.objects.get(pk=product_id)
 
@@ -134,7 +140,19 @@ def add_item_to_cart(request):
 		message = 'You submitted nothing!'
 	return redirect("Donations.views.projectDetails", Project_id=project_id)
 
+def remove_item_from_cart(request):
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
+
+	car_id = request.GET['cartItem']
+	item = Cart.objects.get(pk=car_id)
+	item.delete()
+	return HttpResponseRedirect("/cart/")
+
 def cart(request):
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
+
 	items = []
 	for i in Cart.objects.all():
 		if i.user.email == request.session['email']:
@@ -149,4 +167,7 @@ def cart(request):
 	return render(request, "Donations/cart.html", context)
 
 def about_us(request):
-		return render_to_response("Donations/about_us.html")
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
+
+	return render_to_response("Donations/about_us.html")

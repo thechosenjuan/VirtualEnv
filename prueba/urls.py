@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^projects/(?P<Project_id>[0-9]+)/$', 'Donations.views.projectDetails', name='projectDetails'),
     url(r'^registration/$', 'Donations.views.registration', name="registration"),
     url(r'^add_item_to_cart/$', 'Donations.views.add_item_to_cart', name="add_item_to_cart"),
+    url(r'^remove_item_from_cart/$', 'Donations.views.remove_item_from_cart', name="remove_item_from_cart"),
     url(r'^admin/', include(admin.site.urls)),
 ]

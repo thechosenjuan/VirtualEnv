@@ -75,7 +75,7 @@
         <div class = "media-left">
         {% static "" as Baseurl %}
             <img src="{{Baseurl}}{{item.product.picture}}" style="height:200px, width:200px" alt="">
-        
+
         </div>
         <div class = "media-body">
             <h3 class = "media-heading">{{item.product.name}}</h3>
@@ -86,8 +86,9 @@
                         <td class ="col-md-2 text-center">{{item.product.price}}</td>
                         <td class ="col-md-2 text-center">{{item.quantity}}</td>
                         <td class ="col-md-2 text-center">
-                            <form action="delete">
-                               <input type="submit" href="#" class="btn btn-danger" value="Remove"> 
+                            <form action="/remove_item_from_cart/" method="get">
+                               <input type="hidden" type="text" name = "cartItem" value="{{item.id}}">
+                               <input type="submit" class="btn btn-danger" value="Remove">
                             </form>
                         </td>
                     </tr>
@@ -108,17 +109,17 @@
             </table>
         </div>
     </div>
-    
+
     <div class="row">
        <div class="col-md-offset-10 col-md-2">
             <form action="/checkout/">
                 <input type="hidden" type="text" name="total" value="{{total}}">
                 <input type="submit" class="btn btn-primary" value="Checkout">
             </form>
-        </div> 
+        </div>
     </div>
-    
-    
+
+
     </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
