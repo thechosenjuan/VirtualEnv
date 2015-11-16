@@ -138,3 +138,6 @@ def cart(request):
 		"total": total
 	}
 	return render(request, "Donations/cart.html", context)
+
+def about_us(request):
+		return render_to_response("Donations/about_us.html")
