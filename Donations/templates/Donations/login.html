@@ -35,15 +35,24 @@
 
   <body>
     <div class="container">
-    <h2>{{title}}</h2>
-      <form method='POST' action=''>{% csrf_token %}
-        {{ form|crispy }}
+    <!--<div class="row">
+      <div class="col-md-offset-6 col-md-6"> -->
 
-        <input class="btn btn-primary" type="submit" value="Sign Up">
-        <input class="btn btn-primary" value="Register" onclick="location.href='/registration/'">
+      <form method='POST' action='' class="form-signin">{% csrf_token %}
+        <h2 class="form-signin-heading" >{{title}}</h2>
+        {{ form|crispy}}
+
+    
+        <input class="btn btn-primary btn-block" type="submit" value="Sign Up" id="inputEmail">
+        <input class="btn btn-primary btn-block" value="Register" onclick="location.href='/registration/' ">
       </form>
+      <!--</div>
+    </div> -->
+   
       
     </div> <!-- /container -->
 
   </body>
 </html>
+
+

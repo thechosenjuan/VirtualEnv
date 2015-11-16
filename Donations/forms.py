@@ -1,5 +1,6 @@
 from django import forms
-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 from .models import User
 
 
@@ -22,8 +23,11 @@ class RegistrationForm(forms.ModelForm):
 		return password
 
 class LoginForm(forms.Form):
-	email=forms.EmailField()
+	email=forms.EmailField(widget=forms.TextInput(attrs={'class':'InputEmail'}))
 	password=forms.CharField(widget=forms.PasswordInput)
+
+
+		
 
 
 

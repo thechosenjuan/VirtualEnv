@@ -70,6 +70,8 @@ def registration(request):
 
 
 def logout(request):
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
 	del request.session['email']
 	return HttpResponseRedirect("/login/")
 
