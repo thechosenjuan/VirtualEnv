@@ -99,28 +99,37 @@ def projectDetails(request, Project_id):
 	except Project.DoesNotExist:
 		raise Http404("Project does not exist")
 	context = {
-		'Project': project, 
+		'Project': project,
 		'Products' : products,
 		'Project_id' : Project_id
 		}
 
 	return render(request, 'Donations/detail.html', context)
 
-def search(request):
+def add_item_to_cart(request):
 	if request.GET.get('quantity'):
 
 		product_id = request.GET['product']
 		product_toAdd = Product.objects.get(pk=product_id)
+
 		project_id = request.GET['Project_id']
 		project_toAdd = Project.objects.get(pk=project_id)
+
 		quantity_toAdd = request.GET['quantity']
+
 		message = "carrito actualizado!"
 		user_toAdd = User.objects.get(email = str(request.session['email']))
 
+		existItemInCart = 0
+		for i in Cart.objects.all():
+			if i.user.full_name == user_toAdd.full_name and i.product.name == product_toAdd.name and i.project.name == project_toAdd.name:
+				existItemInCart = i
+				existItemInCart.quantity = int(existItemInCart.quantity) + int(quantity_toAdd)
+				existItemInCart.save()
+				return redirect("Donations.views.projectDetails", Project_id=project_id)
+
 		product_toAddCart = Cart(user = user_toAdd, project = project_toAdd, product = product_toAdd, quantity = int(quantity_toAdd))
 		product_toAddCart.save()
-		
-
 	else:
 		message = 'You submitted nothing!'
 	return redirect("Donations.views.projectDetails", Project_id=project_id)
@@ -138,6 +147,9 @@ def cart(request):
 		"total": total
 	}
 	return render(request, "Donations/cart.html", context)
+<<<<<<< HEAD
 
 def about_us(request):
 		return render_to_response("Donations/about_us.html")
+=======
+>>>>>>> 8aadc80a12ee9b06aaa129b0a8c49a426288d9c5
