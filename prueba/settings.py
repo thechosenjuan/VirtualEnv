@@ -104,3 +104,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'Donations/static')
 MEDIA_URL = '/Donations/static/img/'
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

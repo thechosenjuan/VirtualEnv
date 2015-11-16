@@ -37,11 +37,11 @@
   
     <div class="container">
 
-    <form method='POST' action=''>{% csrf_token %}
+    <form method='POST' action='' class="form-signin">{% csrf_token %}
         {{ form|crispy }}
 
-        <input class="btn btn-primary" type="submit" value="Register">
-        <input class="btn btn-primary" value="Cancel" onclick="location.href='/login/'">
+        <input class="btn btn-primary btn-block" type="submit" value="Register">
+        <input class="btn btn-primary btn-block" value="Cancel" onclick="location.href='/login/'">
       </form>
 
     </div> <!-- /container -->
