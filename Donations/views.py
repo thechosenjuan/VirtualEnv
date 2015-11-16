@@ -172,6 +172,14 @@ def about_us(request):
 
 	return render_to_response("Donations/about_us.html")
 
+def contact(request):
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
+	context = {
+		"Contact": "Contact"
+	}
+	return render(request, "Donations/contact.html", context)
+
 def checkout(request):
 	if 'email' not in request.session:
 		return HttpResponseRedirect("/login/")

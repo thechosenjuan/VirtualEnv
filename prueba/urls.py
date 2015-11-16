@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^logout/$', 'Donations.views.logout', name="logout"),
     url(r'^faq/$', 'Donations.views.faq', name="faq"),
     url(r'^about_us/$', 'Donations.views.about_us', name="about_us"),
+    url(r'^contact/$', 'Donations.views.contact', name="contact"),
     url(r'^cart/$', 'Donations.views.cart', name="cart"),
     url(r'^projects/$', 'Donations.views.projects', name="projects"),
     url(r'^projects/(?P<Project_id>[0-9]+)/$', 'Donations.views.projectDetails', name='projectDetails'),
