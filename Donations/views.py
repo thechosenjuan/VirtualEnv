@@ -171,3 +171,9 @@ def about_us(request):
 		return HttpResponseRedirect("/login/")
 
 	return render_to_response("Donations/about_us.html")
+
+def checkout(request):
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
+
+	return render_to_response("Donations/checkout.html")
