@@ -1,0 +1,8 @@
+.bold{
+  font-weight: bolder;
+}
+.form-group select {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}

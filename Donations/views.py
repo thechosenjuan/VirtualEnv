@@ -183,5 +183,4 @@ def contact(request):
 def checkout(request):
 	if 'email' not in request.session:
 		return HttpResponseRedirect("/login/")
-
 	return render_to_response("Donations/checkout.html")
