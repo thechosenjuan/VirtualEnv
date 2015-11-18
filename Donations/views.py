@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, redirect
 from django.conf import settings
 from .forms import RegistrationForm, LoginForm
 import pdb
-from Donations.models import User, Faq, Project, Product, Cart
+from Donations.models import User, Faq, Project, Product, Cart, ItemSold
 from django.http import HttpResponseRedirect
 from django.http import Http404
 
@@ -186,3 +186,24 @@ def checkout(request):
 	if 'email' not in request.session:
 		return HttpResponseRedirect("/login/")
 	return render_to_response("Donations/checkout.html")
+
+def itemsBought(request):
+	if 'email' not in request.session:
+		return HttpResponseRedirect("/login/")
+	user = request.session['email']
+
+	items = []
+	toDelete = []
+	#get elements with the active user
+	for i in Cart.objects.all():
+		if i.user.email == request.session['email']:
+			items.append(i)
+			toDelete.append(i.id)
+
+	#itemsBought added to the ItemSold
+	for i,x in zip(items,toDelete):
+		product_toAddSold = ItemSold(user = i.user, project = i.project, product = i.product, quantity = i.quantity)
+		product_toAddSold.save()
+		Cart.objects.get(pk=x).delete()
+
+	return HttpResponseRedirect("/home/")

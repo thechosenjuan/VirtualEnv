@@ -49,3 +49,12 @@ class Cart(models.Model):
 
 	def __str__(self):
 		return str(self.quantity)
+
+class ItemSold(models.Model):
+	user = models.ForeignKey(User)
+	project = models.ForeignKey(Project, default=1)
+	product = models.ForeignKey(Product)
+	quantity = models.IntegerField(default=0)
+
+	def __str__(self):
+		return str(self.quantity)

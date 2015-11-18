@@ -30,5 +30,6 @@ urlpatterns = [
     url(r'^checkout/$', 'Donations.views.checkout', name="checkout"),
     url(r'^add_item_to_cart/$', 'Donations.views.add_item_to_cart', name="add_item_to_cart"),
     url(r'^remove_item_from_cart/$', 'Donations.views.remove_item_from_cart', name="remove_item_from_cart"),
+    url(r'^itemsBought/$', 'Donations.views.itemsBought', name="itemsBought"),
     url(r'^admin/', include(admin.site.urls)),
 ]
