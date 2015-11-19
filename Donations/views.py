@@ -199,7 +199,8 @@ def itemsBought(request):
 		if i.user.email == request.session['email']:
 			items.append(i)
 			toDelete.append(i.id)
-
+	import pdb; pdb.set_trace()
+	
 	#itemsBought added to the ItemSold
 	for i,x in zip(items,toDelete):
 		product_toAddSold = ItemSold(user = i.user, project = i.project, product = i.product, quantity = i.quantity)
