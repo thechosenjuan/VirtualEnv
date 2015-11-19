@@ -47,11 +47,11 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/faq">FAQ</a></li>
-                <li><a href="/cart">View cart</a></li>
-                <li><a href="/about_us">About us</a></li>
-                <li><a href="/contact">Contact us</a></li>
+                <li class="{% ifequal request.path '/projects/' %} active{% endifequal%}"><a href="/projects">Projects</a></li>
+                <li class="{% ifequal request.path '/faq/' %} active{% endifequal%}"><a href="/faq">FAQ</a></li>
+                <li class="{% ifequal request.path '/cart/' %} active{% endifequal%}"><a href="/cart">View cart</a></li>
+                <li class="{% ifequal request.path '/about/' %} active{% endifequal%}"><a href="/about">About us</a></li>
+                <li class="{% ifequal request.path '/contact/' %} active{% endifequal%}"><a href="/contact">Contact us</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/logout">Logout</a></li>
